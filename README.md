@@ -1,5 +1,6 @@
 # Ex. No:1b 			Study of Client Server Chat Applications
-
+### Register No: 212223220064
+### Name: NARESH.M
 ## Aim: 
 To perform a study on Client Server Chat Applications
 ## Introduction:
@@ -73,52 +74,55 @@ Client-server chat applications are versatile tools that facilitate real-time co
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
 
-DEVELOPED BY:N.NAVYA SREE     
-REG.NO:212223040138     
-
-## PROGRAM     
-## CLIENT:    
+## Client Program:
 ```
 import socket
-s=socket.socket()
-s.bind(('localhost',8000))
-s.listen(5)
-c,addr=s.accept()
-size=int(input("Enter number of frames to send : "))
-l=list(range(size))
-s=int(input("Enter Window Size : "))
-st=0
-i=0
-while True:
- while(i<len(l)):
- st+=s
- c.send(str(l[i:st]).encode())
- ack=c.recv(1024).decode()
- if ack:
- print(ack)
- i+=s
 
+s = socket.socket()
+host = input(str('Enter hostname or host IP : '))
+port = 8080
+s.connect((host, port))
+print('Connected to chat server')
+while 1:
+    incoming_message = s.recv(1024)
+    incoming_message = incoming_message.decode()
+    print(' Server : ', incoming_message)
+    print()
+    message = input(str('>> '))
+    message = message.encode()
+    s.send(message)
+    print('Sent')
+    print()
 ```
-## SERVER:
+## Server Program:
 ```
 import socket
-s=socket.socket()
-s.connect(('localhost',8000))
-while True: 
- print(s.recv(1024).decode())
- s.send("acknowledgement recived from the server".encode())
+
+s = socket.socket()
+host = socket.gethostname()
+print(' Server will start on host : ', host)
+port = 8080
+s.bind((host, port))
+print()
+print('Waiting for connection')
+print()
+s.listen(1)
+conn, addr = s.accept()
+print(addr, ' Has connected to the server')
+print()
+while 1:
+    message = input(str('>> '))
+    message = message.encode()
+    conn.send(message)
+    print('Sent')
+    print()
+    incoming_message = conn.recv(1024)
+    incoming_message = incoming_message.decode()
+    print(' Client : ', incoming_message)
+    print()
 ```
-
-## OUTPUT:
-## CLIENT:
-
-![image](https://github.com/23004513/ChatStudy/assets/138973069/b886bdbf-0424-4797-87e6-4ad362179f79)
-
-
-## SERVER:
-
-![image](https://github.com/23004513/ChatStudy/assets/138973069/2f22de59-0002-4519-8890-776dbec8cab8)
-
+## Output:
+![Screenshot 2024-04-05 103017](https://github.com/22008837/ChatStudy/assets/120194155/eb98333c-39e4-4b1c-8976-8b6fcfb868a9)
 
 ## Result:
 
